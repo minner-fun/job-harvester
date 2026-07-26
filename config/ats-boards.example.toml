@@ -1,0 +1,74 @@
+# 公司 ATS 招聘看板清单。
+#
+# 这是配置，不是代码 —— 想盯哪家公司直接在这里加一行。
+# 三家 ATS 都有免费公开 API，无需认证，一家公司一次请求。
+#
+# 怎么找 board 名：
+#   Ashby       https://jobs.ashbyhq.com/<board>          -> board = "<board>"
+#   Lever       https://jobs.lever.co/<company>           -> board = "<company>"
+#   Greenhouse  https://boards.greenhouse.io/<token>      -> board = "<token>"
+#
+# 验证某个 board 是否存在（返回 200 且有岗位即可用）：
+#   curl -s "https://api.ashbyhq.com/posting-api/job-board/<board>" | head -c 200
+#   curl -s "https://api.lever.co/v0/postings/<company>?mode=json" | head -c 200
+#   curl -s "https://boards-api.greenhouse.io/v1/boards/<token>/jobs" | head -c 200
+
+[[boards]]
+ats = "ashby"
+board = "allium"
+company = "Allium"
+note = "链上数据基础设施，客户含 Visa/Stripe/Coinbase；Blockchain Data Wizard 无硬性年限门槛"
+
+[[boards]]
+ats = "ashby"
+board = "provable"
+company = "Provable"
+note = "Aleo L1 零知识基础设施；Senior Data Platform Engineer 要求 6+ 年"
+
+[[boards]]
+ats = "ashby"
+board = "trm-labs"
+company = "TRM Labs"
+note = "链上合规/情报；岗位多但多为 Senior，留意 APAC 初中级数据岗"
+
+[[boards]]
+ats = "ashby"
+board = "chainalysis-careers"
+company = "Chainalysis"
+note = "链上分析/合规；有区块链数据管道岗，偏资深"
+
+[[boards]]
+ats = "ashby"
+board = "dune"
+company = "Dune"
+note = "链上数据分析平台；团队限 Europe & US，中国暂不适用，留作远期参考"
+
+[[boards]]
+ats = "ashby"
+board = "goldsky"
+company = "Goldsky"
+note = "区块链数据索引/管道"
+
+[[boards]]
+ats = "ashby"
+board = "nethermind"
+company = "Nethermind"
+note = "以太坊核心基础设施，全远程覆盖 66 国；实测在 Ashby 上有看板"
+
+[[boards]]
+ats = "lever"
+board = "moonpay"
+company = "MoonPay"
+note = "加密支付；Senior/Staff Data Analyst 要 on-chain 数据经验"
+
+[[boards]]
+ats = "greenhouse"
+board = "gemini"
+company = "Gemini"
+note = "美国合规交易所；Senior Data Engineer 要求 crypto/Web3 数据经验"
+
+[[boards]]
+ats = "greenhouse"
+board = "nansen"
+company = "Nansen"
+note = "链上数据/钱包标签"

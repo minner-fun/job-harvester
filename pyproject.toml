@@ -1,0 +1,24 @@
+[project]
+name = "job-harvester"
+version = "0.1.0"
+description = "多源岗位采集器：产出标准化岗位记录，不涉及存储"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx[socks]>=0.27",
+    "python-dotenv>=1.0",
+    "selectolax>=0.3.21",
+]
+
+[project.scripts]
+harvest = "job_harvester.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/job_harvester"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

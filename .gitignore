@@ -1,0 +1,30 @@
+# 含数据库密码与 SSH 主机名
+.env
+
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+data/
+
+# 采集日志与 flock 锁文件
+logs/
+
+# 本机 agent 工具产物：.claude/skills 下是指向 .agents/ 的符号链接，
+# 而 .agents/ 本身不入库，提交后克隆方只会拿到一个坏链
+.agents/
+.claude/
+skills-lock.json
+
+# 个人求职资料（目标公司、门槛评估、投递策略），留本地不公开
+docs/1.md
+docs/local/
+
+# 真实的看板清单是用户数据，只跟踪 .example
+config/ats-boards.toml
+# 水位线等运行时状态
+state/
