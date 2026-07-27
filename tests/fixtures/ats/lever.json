@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1f0a0000-0000-0000-0000-000000000001",
+    "text": "Senior Backend Engineer",
+    "hostedUrl": "https://jobs.lever.co/borealis/1f0a",
+    "applyUrl": "https://jobs.lever.co/borealis/1f0a/apply",
+    "country": "GB",
+    "createdAt": 1785000000000,
+    "workplaceType": "remote",
+    "categories": {
+      "team": "Software Engineering",
+      "location": "United Kingdom - Remote",
+      "commitment": "Full Time",
+      "department": "Engineering",
+      "allLocations": ["United Kingdom - Remote", "Spain - Remote"]
+    },
+    "descriptionPlain": "Build the API.",
+    "additionalPlain": "We offer equity.",
+    "description": "<p>Build the API.</p>",
+    "additional": "<p>We offer equity.</p>",
+    "lists": [],
+    "salaryRange": {
+      "min": 90000,
+      "max": 130000,
+      "currency": "GBP",
+      "interval": "per-year-salary"
+    }
+  },
+  {
+    "id": "1f0a0000-0000-0000-0000-000000000002",
+    "text": "Contract Designer",
+    "hostedUrl": "https://jobs.lever.co/borealis/1f0b",
+    "country": "ES",
+    "createdAt": 1784900000000,
+    "workplaceType": "hybrid",
+    "categories": {
+      "team": "Design",
+      "location": "Madrid",
+      "commitment": "Contract",
+      "department": "Product"
+    },
+    "descriptionPlain": "Make it pretty.",
+    "additionalPlain": "",
+    "salaryRange": null
+  }
+]

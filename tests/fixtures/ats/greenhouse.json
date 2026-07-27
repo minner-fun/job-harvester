@@ -1,0 +1,34 @@
+{
+  "jobs": [
+    {
+      "id": 4567890,
+      "internal_job_id": 1234567,
+      "title": "Security Engineer",
+      "absolute_url": "https://job-boards.greenhouse.io/cinder/jobs/4567890",
+      "company_name": "Cinder Inc.",
+      "location": {"name": "Remote - United States"},
+      "offices": [{"id": 1, "name": "Remote", "location": "Remote"}],
+      "departments": [{"id": 10, "name": "Security"}, {"id": 11, "name": "Engineering"}],
+      "first_published": "2026-07-10T12:00:00-04:00",
+      "updated_at": "2026-07-20T12:00:00-04:00",
+      "requisition_id": "R-100",
+      "content": "&lt;p&gt;Keep the &lt;strong&gt;attackers&lt;/strong&gt; out.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Threat modeling&lt;/li&gt;&lt;/ul&gt;",
+      "metadata": [],
+      "data_compliance": []
+    },
+    {
+      "id": 4567891,
+      "title": "Office Manager",
+      "absolute_url": "https://job-boards.greenhouse.io/cinder/jobs/4567891",
+      "company_name": "Cinder Inc.",
+      "location": {"name": "Berlin, Germany"},
+      "offices": [{"id": 2, "name": "Berlin"}],
+      "departments": [{"id": 12, "name": "People"}],
+      "first_published": null,
+      "updated_at": "2026-07-18T08:00:00Z",
+      "content": "&lt;p&gt;Run the office.&lt;/p&gt;",
+      "metadata": []
+    }
+  ],
+  "meta": {"total": 2}
+}

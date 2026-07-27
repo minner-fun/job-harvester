@@ -12,6 +12,12 @@ dependencies = [
 [project.scripts]
 harvest = "job_harvester.cli:main"
 
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -22,3 +28,10 @@ packages = ["src/job_harvester"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# 每个源的用例都是异步的，逐个挂 @pytest.mark.asyncio 只是噪声
+asyncio_mode = "auto"
+# 让用例能 `from conftest import ...` 拿到 FakeFetcher
+pythonpath = ["tests"]

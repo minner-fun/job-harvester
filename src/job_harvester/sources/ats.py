@@ -50,13 +50,9 @@ ASHBY = "https://api.ashbyhq.com/posting-api/job-board/{}"
 LEVER = "https://api.lever.co/v0/postings/{}"
 GREENHOUSE = "https://boards-api.greenhouse.io/v1/boards/{}/jobs"
 
-_EMPLOYMENT = {
-    "fulltime": "full-time", "full-time": "full-time",
-    "parttime": "part-time", "part-time": "part-time",
-    "intern": "internship", "internship": "internship",
-    "contract": "contract", "contractor": "contract",
-    "temporary": "temporary",
-}
+# 雇佣类型不在这里映射：models._norm_employment 已经覆盖了三家的全部写法，
+# 而且它会把空格和下划线归一成连字符。这里再维护一张表只会漏——曾经就漏过
+# Lever 的 "Full Time"（带空格），映射不中直接落成 NULL，实测丢了 8 条。
 _WORKPLACE = {
     "remote": "remote",
     "hybrid": "hybrid",
@@ -165,9 +161,7 @@ class AtsSource(Source):
                 title=title,
                 description=_text(item.get("descriptionPlain") or item.get("descriptionHtml")),
                 company_name=company,
-                employment_type=_EMPLOYMENT.get(
-                    str(item.get("employmentType") or "").lower()
-                ),
+                employment_type=item.get("employmentType"),
                 remote_type=remote,
                 locations=[str(x) for x in locations if x],
                 tags=[t for t in (item.get("department"), item.get("team")) if t],
@@ -229,7 +223,7 @@ class AtsSource(Source):
                 title=title,
                 description=_text(desc),
                 company_name=company,
-                employment_type=_EMPLOYMENT.get(str(cats.get("commitment") or "").lower()),
+                employment_type=cats.get("commitment"),
                 remote_type=_WORKPLACE.get(str(item.get("workplaceType") or "").lower()),
                 locations=[x for x in (cats.get("location"), item.get("country")) if x],
                 tags=[x for x in (cats.get("department"), cats.get("team")) if x],

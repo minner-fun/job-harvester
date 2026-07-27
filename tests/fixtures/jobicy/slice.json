@@ -1,0 +1,37 @@
+{
+  "jobCount": 2,
+  "jobs": [
+    {
+      "id": 144343,
+      "url": "https://jobicy.com/jobs/144343-brand-writer",
+      "jobTitle": "Brand Writer",
+      "companyName": "Acme Labs",
+      "jobIndustry": ["Content &amp; Editorial"],
+      "jobType": ["Full-Time"],
+      "jobGeo": "Ireland, Remote",
+      "jobLevel": "Senior",
+      "jobDescription": "<h2>About Acme</h2>Write the words.",
+      "pubDate": "2026-07-27T13:55:03+00:00",
+      "salaryCurrency": "USD",
+      "salaryMin": 90000,
+      "salaryMax": 120000,
+      "salaryPeriod": "yearly"
+    },
+    {
+      "id": 144400,
+      "url": "https://jobicy.com/jobs/144400-platform-engineer",
+      "jobTitle": "Platform Engineer",
+      "companyName": "Dune Works",
+      "jobIndustry": ["Engineering"],
+      "jobType": ["Full-Time"],
+      "jobGeo": "USA",
+      "jobLevel": "Senior",
+      "jobDescription": "Run the clusters.",
+      "pubDate": "2026-07-28T02:00:00+00:00",
+      "salaryCurrency": "USD",
+      "salaryMin": 0,
+      "salaryMax": 0,
+      "salaryPeriod": "yearly"
+    }
+  ]
+}

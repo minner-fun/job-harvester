@@ -49,7 +49,7 @@ def _norm_employment(value: str | None) -> str | None:
     return mapping.get(v, v)
 
 
-def _clean_money(value) -> float | None:
+def clean_money(value) -> float | None:
     """薪资清洗。
 
     RemoteOK 大量返回字符串 "0" 表示「未知」而非零薪，必须转 NULL，
@@ -101,8 +101,8 @@ class Job:
     def __post_init__(self) -> None:
         self.employment_type = _norm_employment(self.employment_type)
         self.salary_period = _norm_period(self.salary_period)
-        self.salary_min = _clean_money(self.salary_min)
-        self.salary_max = _clean_money(self.salary_max)
+        self.salary_min = clean_money(self.salary_min)
+        self.salary_max = clean_money(self.salary_max)
         if self.salary_currency:
             self.salary_currency = self.salary_currency.strip().upper() or None
         # 去重去空

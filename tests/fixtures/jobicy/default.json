@@ -1,0 +1,51 @@
+{
+  "jobCount": 3,
+  "jobs": [
+    {
+      "id": 144343,
+      "url": "https://jobicy.com/jobs/144343-brand-writer",
+      "jobSlug": "144343-brand-writer",
+      "jobTitle": "Brand Writer",
+      "companyName": "Acme Labs",
+      "companyLogo": "https://jobicy.com/data/acme-labs.png",
+      "jobIndustry": ["Content &amp; Editorial"],
+      "jobType": ["Full-Time"],
+      "jobGeo": "Ireland, Remote",
+      "jobLevel": "Senior",
+      "jobExcerpt": "Write the words.",
+      "jobDescription": "<h2>About Acme</h2>Write the words.",
+      "pubDate": "2026-07-27T13:55:03+00:00",
+      "salaryCurrency": "USD",
+      "salaryMin": 90000,
+      "salaryMax": 120000,
+      "salaryPeriod": "yearly"
+    },
+    {
+      "id": 144344,
+      "url": "https://jobicy.com/jobs/144344-support-lead",
+      "jobSlug": "144344-support-lead",
+      "jobTitle": "Support Lead",
+      "companyName": "Borealis",
+      "companyLogo": "",
+      "jobIndustry": "Customer Support",
+      "jobType": ["Contract"],
+      "jobGeo": "Anywhere",
+      "jobLevel": ["Mid", "Senior"],
+      "jobExcerpt": "Answer the tickets.",
+      "jobDescription": "",
+      "pubDate": "2026-07-26T09:00:00+00:00",
+      "salaryCurrency": null,
+      "salaryMin": null,
+      "salaryMax": null,
+      "salaryPeriod": null
+    },
+    {
+      "id": 144345,
+      "url": "https://jobicy.com/jobs/144345-no-title",
+      "jobTitle": "",
+      "companyName": "Cinder",
+      "jobGeo": "Worldwide",
+      "pubDate": "2026-07-25T09:00:00+00:00"
+    }
+  ]
+}

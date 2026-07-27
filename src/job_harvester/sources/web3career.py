@@ -193,8 +193,8 @@ class Web3CareerSource(Source):
             raw=raw,
         )
 
-    @staticmethod
-    def _pick_posting(postings: list[dict], url: str) -> dict | None:
+    @classmethod
+    def _pick_posting(cls, postings: list[dict], url: str) -> dict | None:
         """详情页有多个 JobPosting，按 URL slug 选出属于本页的那个。"""
         m = JOB_URL_RE.match(url)
         if not m:
@@ -204,7 +204,11 @@ class Web3CareerSource(Source):
         for item in postings:
             org = item.get("hiringOrganization") or {}
             name = org.get("name") if isinstance(org, dict) else org
-            got = slugify(f"{item.get('title')} {name}")
+            # 标题必须**先反转义再** slugify：JSON-LD 里的 & 是 `&amp;`，
+            # 直接 slugify 会把 "amp" 当成一个词留在 slug 里，和 URL 永远对不上。
+            # 实测库里 272 条标题含 & 的记录，匹配成功数是 0 —— 保护网整个失效，
+            # 全部退回「盲取第一个 JobPosting」，而第一个未必是本页岗位。
+            got = slugify(f"{cls._text(item.get('title'))} {cls._text(name)}")
             if got and (want.startswith(got) or got.startswith(want)):
                 return item
         # 匹配不上时退回第一个（推荐位通常排在后面），但记下来便于排查

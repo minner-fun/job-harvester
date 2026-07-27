@@ -1,0 +1,26 @@
+# 测试用看板清单。真实清单是用户数据，不在本仓库里（见 config/ats-boards.example.toml）。
+[[boards]]
+ats = "ashby"
+board = "acme-labs"
+company = "Acme Labs"
+
+[[boards]]
+ats = "lever"
+board = "borealis"
+company = "Borealis"
+
+[[boards]]
+ats = "greenhouse"
+board = "cinder"
+company = "Cinder"
+
+# ats 名字不认识，应被跳过而不是让整轮失败
+[[boards]]
+ats = "workday"
+board = "dune-works"
+company = "Dune Works"
+
+# 缺 board，同样跳过
+[[boards]]
+ats = "ashby"
+company = "Everlight"

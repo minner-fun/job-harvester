@@ -1,0 +1,67 @@
+[
+  {
+    "legal": "RemoteOK API — attribution and a dofollow backlink are required.",
+    "last_updated": "2026-07-27T22:00:00+00:00"
+  },
+  {
+    "id": "1131402",
+    "slug": "remote-staff-platform-engineer-acme-labs-1131402",
+    "position": "Staff Platform Engineer",
+    "company": "Acme Labs",
+    "company_logo": "",
+    "logo": "",
+    "location": "New York , Remote",
+    "tags": ["engineer", "backend", "senior", "python", ""],
+    "description": "<h1>Staff Platform Engineer</h1><p>Own the data plane.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-staff-platform-engineer-acme-labs-1131402",
+    "apply_url": "https://remoteOK.com/remote-jobs/remote-staff-platform-engineer-acme-labs-1131402",
+    "date": "2026-07-27T16:00:32+00:00",
+    "epoch": 1785000000,
+    "salary_min": 180000,
+    "salary_max": 220000
+  },
+  {
+    "id": "1131403",
+    "slug": "remote-community-manager-borealis-1131403",
+    "position": "Community Manager",
+    "company": "Borealis",
+    "company_logo": "https://remoteOK.com/assets/borealis.png",
+    "logo": "",
+    "location": "",
+    "tags": ["marketing", "non tech"],
+    "description": "<p>Grow the Discord.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-community-manager-borealis-1131403",
+    "apply_url": "https://remoteOK.com/remote-jobs/remote-community-manager-borealis-1131403",
+    "date": "2026-07-26T09:11:00+00:00",
+    "epoch": 1784900000,
+    "salary_min": "0",
+    "salary_max": "0"
+  },
+  {
+    "id": "1131405",
+    "slug": "remote-data-engineer-cinder-1131405",
+    "position": "Data Engineer",
+    "company": "Cinder",
+    "company_logo": "",
+    "logo": "",
+    "location": "Worldwide",
+    "tags": ["data", "engineer"],
+    "description": "<p>Move rows around.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-data-engineer-cinder-1131405",
+    "date": "2026-07-25T08:00:00+00:00",
+    "epoch": 1784850000,
+    "salary_min": 0,
+    "salary_max": 0
+  },
+  {
+    "id": "1131404",
+    "position": "",
+    "company": "Cinder",
+    "location": "Remote",
+    "tags": [],
+    "url": "https://remoteOK.com/remote-jobs/1131404",
+    "epoch": 1784800000,
+    "salary_min": "0",
+    "salary_max": "0"
+  }
+]

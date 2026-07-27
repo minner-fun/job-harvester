@@ -1,0 +1,90 @@
+{
+  "jobs": [
+    {
+      "id": "25b05625-bcd6-4ac0-b73c-f226b380a0dd",
+      "title": "Account Executive (TradFi Segment) ",
+      "location": "New York",
+      "secondaryLocations": [
+        {"location": "London", "address": {"postalAddress": {"addressCountry": "GBR"}}},
+        {"location": "Remote - EMEA", "address": {}}
+      ],
+      "department": "GTM",
+      "team": "Sales",
+      "employmentType": "FullTime",
+      "isListed": true,
+      "isRemote": null,
+      "workplaceType": "Remote",
+      "jobUrl": "https://jobs.ashbyhq.com/acme-labs/25b05625",
+      "applyUrl": "https://jobs.ashbyhq.com/acme-labs/25b05625/application",
+      "publishedAt": "2026-07-01T14:58:07.403+00:00",
+      "descriptionPlain": "THE ROLE\n\n - Sell things\n",
+      "descriptionHtml": "<h2><strong>THE ROLE</strong></h2><ul><li>Sell things</li></ul>",
+      "shouldDisplayCompensationOnJobPostings": true,
+      "address": {"postalAddress": {"addressRegion": "New York", "addressCountry": "USA"}},
+      "compensation": {
+        "compensationTiers": [
+          {
+            "id": "a798c997-7981-49cf-b4f0-0cb16c25464c",
+            "title": null,
+            "components": [
+              {
+                "id": "63f0",
+                "summary": "$120K – $160K",
+                "compensationType": "EquityPercentage",
+                "interval": "NONE",
+                "currencyCode": null,
+                "minValue": 0.1,
+                "maxValue": 0.5
+              },
+              {
+                "id": "63f1",
+                "summary": "$120K – $160K",
+                "compensationType": "Salary",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": 120000,
+                "maxValue": 160000
+              }
+            ]
+          }
+        ],
+        "summaryComponents": [],
+        "compensationTierSummary": "$120K – $160K",
+        "scrapeableCompensationSalarySummary": null
+      }
+    },
+    {
+      "id": "9f1c0000-0000-0000-0000-000000000002",
+      "title": "Retired Role",
+      "location": "Remote",
+      "secondaryLocations": [],
+      "department": "GTM",
+      "employmentType": "FullTime",
+      "isListed": false,
+      "workplaceType": "Remote",
+      "jobUrl": "https://jobs.ashbyhq.com/acme-labs/9f1c",
+      "publishedAt": "2026-01-01T00:00:00.000+00:00",
+      "descriptionPlain": "Gone.",
+      "compensation": null
+    },
+    {
+      "id": "9f1c0000-0000-0000-0000-000000000003",
+      "title": "Support Engineer",
+      "location": "Berlin",
+      "secondaryLocations": [],
+      "department": "Support",
+      "employmentType": "Intern",
+      "isListed": true,
+      "isRemote": true,
+      "workplaceType": null,
+      "jobUrl": "https://jobs.ashbyhq.com/acme-labs/9f1d",
+      "publishedAt": "2026-06-15T00:00:00.000+00:00",
+      "descriptionPlain": "Help users.",
+      "compensation": {
+        "compensationTiers": [],
+        "summaryComponents": [],
+        "compensationTierSummary": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Software Engineer at Acme Labs</title>
+
+<!-- 站点上确实存在会让 json.loads 抛 Extra data 的畸形块，必须逐块容错 -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList"}{"trailing":"garbage"}
+</script>
+
+<!-- 页面下方推荐位的岗位，和本页完全无关。它排在真正的岗位**前面**，
+     所以盲取第一个 JobPosting 会入库成完全错误的记录。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  "title": "Growth Marketer",
+  "description": "Unrelated recommended job.",
+  "hiringOrganization": {"@type": "Organization", "name": "Moomoo", "logo": ""},
+  "employmentType": "Full-time",
+  "datePosted": "2026-05-01T00:00:00+01:00",
+  "jobLocationType": "TELECOMMUTE",
+  "baseSalary": {"@type": "MonetaryAmount", "currency": "USD",
+    "value": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitText": "YEAR"}}
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  "title": "Software Engineer &amp; Architect",
+  "description": "<p>At Acme Labs, we build <strong>things</strong>.</p>",
+  "hiringOrganization": {"@type": "Organization", "name": "Acme Labs", "logo": ""},
+  "employmentType": "Full-time",
+  "industry": "Startups",
+  "occupationalCategory": "",
+  "workHours": "Flexible",
+  "jobLocationType": "TELECOMMUTE",
+  "applicantLocationRequirements": {"@type": "Country", "name": "Anywhere"},
+  "jobLocation": {"@type": "Place", "address": {"@type": "PostalAddress",
+    "addressLocality": "New York", "addressRegion": "NY", "addressCountry": "US",
+    "postalCode": "", "streetAddress": ""}},
+  "baseSalary": {"@type": "MonetaryAmount", "currency": "USD",
+    "value": {"@type": "QuantitativeValue", "minValue": 135000, "maxValue": 276000,
+              "unitText": "YEAR"}},
+  "datePosted": "2026-07-24T01:34:40+01:00",
+  "validThrough": "2026-09-28T01:34:40+01:00",
+  "image": ""
+}
+</script>
+</head>
+<body><h1>Software Engineer</h1></body>
+</html>

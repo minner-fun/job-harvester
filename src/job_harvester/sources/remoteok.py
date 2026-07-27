@@ -7,8 +7,10 @@
 - 无分页，单次固定返回约 100 条，且**只覆盖最近 3 天左右**（实测 07-22 ~ 07-25）。
   窗口极小，必须高频轮询，漏采无法回补。
 - 响应数组**第一个元素不是岗位**，而是 `{last_updated, legal}` 说明对象，必须跳过。
-- `salary_min`/`salary_max` 大量是字符串 `"0"`，表示「未知」而非零薪；
-  models._clean_money 会把 <=0 的值转成 NULL。
+- `salary_min`/`salary_max` 大量是 `0`（实测既出现过数字也出现过字符串 `"0"`），
+  表示「未知」而非零薪；models.clean_money 会把 <=0 的值转成 NULL。
+  **币种与周期要跟着清洗后的金额走** —— 字符串 `"0"` 在 Python 里是真值，
+  照着原始字段判真假会写出「金额 NULL、币种却是 USD」的记录。
 - robots：`User-agent: *` 是 `Allow: /` + `Crawl-delay: 1`；
   那几条 `Disallow: /*?action=get_jobs` 挂在 AhrefsBot 组下，对 `*` 不生效。
 - ToS 要求 dofollow 回链 + 署名；logo 是注册商标，不可使用。
@@ -19,7 +21,7 @@ from __future__ import annotations
 import logging
 from collections.abc import AsyncIterator
 
-from ..models import Job, ts_from_seconds
+from ..models import Job, clean_money, ts_from_seconds
 from .base import Source
 
 log = logging.getLogger(__name__)
@@ -87,6 +89,14 @@ class RemoteOkSource(Source):
             return None
 
         location = (item.get("location") or "").strip()
+
+        # 币种和周期必须跟着**清洗后**的金额走。直接判 item["salary_min"] 的真假
+        # 会踩坑：该字段实测出现过字符串 "0"（表示未知），而 "0" 在 Python 里是
+        # 真值，于是写出「金额 NULL、币种却是 USD」的记录。
+        smin = clean_money(item.get("salary_min"))
+        smax = clean_money(item.get("salary_max"))
+        has_salary = smin is not None or smax is not None
+
         return Job(
             source=self.name,
             source_id=str(item["id"]),
@@ -98,11 +108,10 @@ class RemoteOkSource(Source):
             remote_type="remote",  # 站点只收远程岗
             locations=[p.strip() for p in location.split(",") if p.strip()],
             tags=[t for t in (item.get("tags") or []) if t],
-            # "0" 表示未知而非零薪，交由 models._clean_money 转 NULL
-            salary_min=item.get("salary_min"),
-            salary_max=item.get("salary_max"),
-            salary_currency="USD" if item.get("salary_min") else None,
-            salary_period="annual" if item.get("salary_min") else None,
+            salary_min=smin,
+            salary_max=smax,
+            salary_currency="USD" if has_salary else None,
+            salary_period="annual" if has_salary else None,
             posted_at=ts_from_seconds(item.get("epoch")),
             raw=item,
         )

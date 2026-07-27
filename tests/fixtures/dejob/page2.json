@@ -1,0 +1,43 @@
+{
+  "errorCode": 0,
+  "message": "success",
+  "data": {
+    "page": {"current": 2, "size": 3, "total": 5},
+    "results": [
+      {
+        "topicId": 4019,
+        "positionName": "Marketing Lead",
+        "company": "Dune Works",
+        "companyId": 982,
+        "companyIntroduction": "",
+        "content": "增长与投放。",
+        "content2": "",
+        "content3": "",
+        "content5": "",
+        "createTime": 1784700000000,
+        "base": "Remote",
+        "location": "",
+        "minSalary": 2000,
+        "maxSalary": 4000,
+        "officeModeName": "Remote",
+        "workTypeName": "Full Time",
+        "email": "",
+        "phone": "",
+        "telegram": "",
+        "wechat": "",
+        "tags": [],
+        "user": {"id": 14792, "nickname": "dune", "walletAddress": ""}
+      },
+      {
+        "topicId": 4020,
+        "positionName": "",
+        "company": "Everlight",
+        "createTime": 1784600000000,
+        "base": "Remote",
+        "officeModeName": "Remote",
+        "workTypeName": "Full Time",
+        "user": {}
+      }
+    ]
+  }
+}

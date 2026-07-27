@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cryptocurrency Jobs</title>
+    <link>https://cryptocurrencyjobs.co/</link>
+    <description>Latest crypto jobs</description>
+    <item>
+      <title>Head of Operations at Chronicle</title>
+      <link>https://cryptocurrencyjobs.co/operations/chronicle-head-of-operations/</link>
+      <guid>https://cryptocurrencyjobs.co/operations/chronicle-head-of-operations/</guid>
+      <pubDate>Fri, 24 Jul 2026 18:48:17 +0200</pubDate>
+      <description>Chronicle is looking to hire a Head of Operations to join their team. This is a full-time position that can be done remotely anywhere.</description>
+    </item>
+    <item>
+      <title>Software Engineer (Indexer Focus) - Shielded at Input | Output</title>
+      <link>https://cryptocurrencyjobs.co/engineering/input-output-software-engineer-indexer/</link>
+      <guid>https://cryptocurrencyjobs.co/engineering/input-output-software-engineer-indexer/</guid>
+      <pubDate>Thu, 23 Jul 2026 09:00:00 +0200</pubDate>
+      <description>Input Output is looking to hire a Software Engineer. This is an onsite position in Zug.</description>
+    </item>
+    <item>
+      <title>Head of Design</title>
+      <link>https://cryptocurrencyjobs.co/design/acme-labs-head-of-design/</link>
+      <guid>https://cryptocurrencyjobs.co/design/acme-labs-head-of-design/</guid>
+      <pubDate>Wed, 22 Jul 2026 09:00:00 +0200</pubDate>
+      <description>Acme Labs is hiring.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://cryptocurrencyjobs.co/marketing/no-title/</link>
+      <pubDate>Tue, 21 Jul 2026 09:00:00 +0200</pubDate>
+      <description>Missing title.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+[
+  {
+    "legal": "RemoteOK API — attribution and a dofollow backlink are required.",
+    "last_updated": "2026-07-27T22:00:00+00:00"
+  },
+  {
+    "id": "1131402",
+    "slug": "remote-staff-platform-engineer-acme-labs-1131402",
+    "position": "Staff Platform Engineer",
+    "company": "Acme Labs",
+    "company_logo": "",
+    "location": "New York , Remote",
+    "tags": ["engineer", "backend", "senior", "python"],
+    "description": "<h1>Staff Platform Engineer</h1><p>Own the data plane.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-staff-platform-engineer-acme-labs-1131402",
+    "epoch": 1785000000,
+    "salary_min": 180000,
+    "salary_max": 220000
+  },
+  {
+    "id": "1131500",
+    "slug": "remote-solidity-engineer-dune-works-1131500",
+    "position": "Solidity Engineer",
+    "company": "Dune Works",
+    "company_logo": "",
+    "location": "Worldwide",
+    "tags": ["web3", "solidity", "engineer"],
+    "description": "<p>Write contracts.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-solidity-engineer-dune-works-1131500",
+    "epoch": 1785010000,
+    "salary_min": "0",
+    "salary_max": "0"
+  }
+]
