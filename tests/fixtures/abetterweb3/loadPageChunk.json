@@ -1,0 +1,31 @@
+{
+  "recordMap": {
+    "collection": {
+      "eed2f550-4e6d-4d6d-8ff6-4c04b8f1546d": {
+        "value": {
+          "id": "eed2f550-4e6d-4d6d-8ff6-4c04b8f1546d",
+          "schema": {
+            "title": {"name": "项目/公司", "type": "title"},
+            "aB1c": {"name": "tikcer", "type": "text"},
+            "cD2e": {"name": "来源", "type": "url"},
+            "eF3g": {"name": "link", "type": "url"},
+            "gH4i": {"name": "生态", "type": "multi_select"},
+            "iJ5k": {"name": "类型", "type": "multi_select"},
+            "kL6m": {"name": "岗位标签", "type": "multi_select"},
+            "mN7o": {"name": "办公区域", "type": "multi_select"},
+            "oP8q": {"name": "经验", "type": "multi_select"},
+            "qR9s": {"name": "实习", "type": "checkbox"},
+            "sT0u": {"name": "兼职", "type": "checkbox"},
+            "uV1w": {"name": "全职", "type": "checkbox"},
+            "wX2y": {"name": "远程", "type": "checkbox"},
+            "yZ3a": {"name": "猎头对接", "type": "checkbox"},
+            "aB4c": {"name": "币权/NFT", "type": "checkbox"},
+            "cD5e": {"name": "岗位需求", "type": "text"},
+            "eF6g": {"name": "待遇/工作环境", "type": "text"},
+            "gH7i": {"name": "投递", "type": "text"}
+          }
+        }
+      }
+    }
+  }
+}

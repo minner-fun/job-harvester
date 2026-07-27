@@ -1,0 +1,69 @@
+{
+  "result": {
+    "reducerResults": {
+      "collection_group_results": {
+        "type": "results",
+        "blockIds": ["blk-0001", "blk-0002", "blk-0003", "blk-missing"],
+        "hasMore": false
+      }
+    }
+  },
+  "recordMap": {
+    "block": {
+      "blk-0001": {
+        "value": {
+          "id": "blk-0001",
+          "created_time": 1780000000000,
+          "last_edited_time": 1785000000000,
+          "properties": {
+            "title": [["Acme Labs"]],
+            "aB1c": [["ACME"]],
+            "cD2e": [["https://acme-labs.example.com"]],
+            "eF3g": [["https://jobs.acme-labs.example.com"]],
+            "gH4i": [["Ethereum, Solana"]],
+            "iJ5k": [["DeFi"]],
+            "kL6m": [["工程, 产品"]],
+            "mN7o": [["远程, 新加坡"]],
+            "oP8q": [["3-5年"]],
+            "qR9s": [["No"]],
+            "sT0u": [["No"]],
+            "uV1w": [["Yes"]],
+            "wX2y": [["Yes"]],
+            "yZ3a": [["No"]],
+            "aB4c": [["Yes"]],
+            "cD5e": [["招 Solidity 工程师若干"]],
+            "eF6g": [["薪资面议，弹性工作"]],
+            "gH7i": [["投递邮箱见官网"]]
+          }
+        }
+      },
+      "blk-0002": {
+        "value": {
+          "value": {
+            "id": "blk-0002",
+            "created_time": 1781000000000,
+            "last_edited_time": 1784000000000,
+            "properties": {
+              "title": [["Borealis", [["a", "https://borealis.example.com"]]]],
+              "gH4i": [["Polkadot"]],
+              "uV1w": [["Yes"]],
+              "wX2y": [["No"]],
+              "cD5e": [["招运营"]]
+            }
+          }
+        }
+      },
+      "blk-0003": {
+        "value": {
+          "id": "blk-0003",
+          "created_time": 1782000000000,
+          "last_edited_time": 1783000000000,
+          "properties": {
+            "aB1c": [["NOCO"]],
+            "cD5e": [["没有公司名的行，应被丢弃"]]
+          }
+        }
+      }
+    }
+  }
+}

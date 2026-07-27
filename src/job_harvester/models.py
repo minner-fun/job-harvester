@@ -139,6 +139,10 @@ class Job:
 def _dedupe(items) -> list[str]:
     out, seen = [], set()
     for it in items or []:
+        # 先挡掉 None：str(None) 是 "None"，非空字符串，会被当成一个正经标签
+        # 写进数组字段。各源的 tags/locations 里出现 null 元素并不罕见。
+        if it is None:
+            continue
         s = str(it).strip()
         if s and s not in seen:
             seen.add(s)
@@ -152,7 +156,9 @@ def ts_from_millis(value) -> datetime | None:
         return None
     try:
         return datetime.fromtimestamp(int(value) / 1000, tz=timezone.utc)
-    except (TypeError, ValueError, OSError):
+    # OverflowError：Python 的 json 默认接受 Infinity / NaN 字面量，
+    # 真收到时 int(inf) 会炸，而这里本该是「解析不出来就当没有」
+    except (TypeError, ValueError, OSError, OverflowError):
         return None
 
 
@@ -162,5 +168,5 @@ def ts_from_seconds(value) -> datetime | None:
         return None
     try:
         return datetime.fromtimestamp(int(value), tz=timezone.utc)
-    except (TypeError, ValueError, OSError):
+    except (TypeError, ValueError, OSError, OverflowError):
         return None
