@@ -14,9 +14,15 @@ from __future__ import annotations
 
 import logging
 
+import pytest
 from conftest import FakeFetcher, collect, load
 
-from job_harvester.sources.himalayas import API, PAGE_LIMIT, HimalayasSource
+from job_harvester.sources.himalayas import (
+    API,
+    PAGE_LIMIT,
+    RESUME_REWIND,
+    HimalayasSource,
+)
 
 JOBS = load("himalayas", "jobs.json")
 
@@ -152,6 +158,113 @@ async def test_接口降级时置空公司名并报错(caplog):
     assert "占位公司名" in caplog.text
     # 只警告一次，不是每条都刷屏
     assert caplog.text.count("占位公司名") == 1
+
+
+# ------------------------------------------------------------ 全量断点续跑
+# 全量要打一万多次请求、十来个小时，中途必然会撞上站点甩负载。
+# 实测连挂两次：第一次死在第 198 次请求（Cloudflare 520），
+# 第二次死在第 673 次（站点连发 HTTP 500）。没有续跑就等于永远跑不完。
+
+
+async def test_全量边走边记进度():
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher)
+
+    await collect(source, full=True)
+
+    # 走完了就该清掉，否则下次 --full 会从末尾接着走、等于什么都不抓
+    assert source.resume_state == {}
+    assert "full_offset" not in source.next_cursor
+
+
+async def test_全量中断时进度留在_resume_state():
+    """resume_state 是**失败也要持久化**的那份，水位线不能这样对待。"""
+    炸 = {"n": 0}
+
+    def 第二页就炸(params: dict):
+        炸["n"] += 1
+        if 炸["n"] > 1:
+            raise RuntimeError("模拟站点 500")
+        return paged()(params)
+
+    fetcher = FakeFetcher({API: 第二页就炸})
+    source = HimalayasSource(fetcher)
+
+    with pytest.raises(RuntimeError):
+        await collect(source, full=True)
+
+    # 第 1 页翻完了，进度停在 9；第 2 页才炸的
+    assert source.resume_state == {"full_offset": PAGE_LIMIT}
+    # 水位线不能因为「已经看到过更新的记录」就推进 —— 后面还有没处理的
+    assert "max_pub_date" not in source.resume_state
+
+
+async def test_全量从上次的_offset_续跑():
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"full_offset": 900})
+
+    await collect(source, full=True)
+
+    起始 = fetcher.calls[0][1]["offset"]
+    assert 起始 == 900 - RESUME_REWIND
+
+
+async def test_续跑会往回退一段():
+    """往回退是为了盖住「过期岗位被摘掉导致整体前移」造成的遗漏。
+
+    新岗位插在最前面只会让旧记录往后漂，从原位续跑最多重复处理、不会漏；
+    真正会漏的是反方向，所以退一段。
+    """
+    assert RESUME_REWIND > 0
+
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"full_offset": 50})
+    await collect(source, full=True)
+
+    # 退过头也不能变成负数
+    assert fetcher.calls[0][1]["offset"] == 0
+
+
+async def test_没有进度时全量从头开始():
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"max_pub_date": 1784600000})
+
+    await collect(source, full=True)
+
+    assert fetcher.calls[0][1]["offset"] == 0
+
+
+async def test_增量不碰全量的续跑进度():
+    """回归护栏：两次全量之间必然夹着若干轮 cron 增量。
+
+    增量若把 full_offset 顺手抹掉，续跑就永远等不到，
+    全量会一次次从 offset 0 重来。
+    """
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"max_pub_date": 1784600000, "full_offset": 5985})
+
+    await collect(source)
+
+    assert source.next_cursor["full_offset"] == 5985
+    assert source.next_cursor["max_pub_date"] == 1785000000
+    # 增量本身不产生续跑进度
+    assert source.resume_state == {}
+
+
+async def test_增量不受续跑进度影响_仍从头看():
+    """full_offset 只对全量有意义，增量必须照旧从 offset 0 看最新的几页。"""
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"max_pub_date": 1784600000, "full_offset": 5985})
+
+    await collect(source)
+
+    assert fetcher.calls[0][1]["offset"] == 0
+
+
+async def test_全量用更保守的速率与重试预算():
+    """沿用增量的参数，实测压 45 分钟后站点就开始返回 500。"""
+    assert HimalayasSource.full_delay > HimalayasSource.delay
+    assert HimalayasSource.full_max_retries > 4
 
 
 async def test_返回结构异常时安全终止():

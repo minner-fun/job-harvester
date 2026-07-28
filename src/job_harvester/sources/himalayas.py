@@ -26,6 +26,14 @@ log = logging.getLogger(__name__)
 API = "https://himalayas.app/jobs/api"
 # 服务端硬上限是 20，但 >=10 会返回占位公司名，故取降级前的最大值 9
 PAGE_LIMIT = 9
+
+# 全量续跑时往回退的 offset 数。
+#
+# 列表按 pubDate 倒序，新岗位插在最前面，所以随着时间推移，原先在 offset X
+# 的那条会漂到 X+N —— 从 X 续跑只会重复处理已经见过的（upsert 判为无变化，
+# 无害），不会漏。真正会漏的是反方向：过期岗位被摘掉时整体前移。
+# 退这么一段把摘除量盖住；代价只有约 23 次请求。
+RESUME_REWIND = 200
 # 接口在批量降级时写入的字面量，出现即说明 PAGE_LIMIT 被调高到了阈值以上
 PLACEHOLDER_COMPANY = "name"
 PLACEHOLDER_LOGO = "thumbnail_url"
@@ -43,6 +51,10 @@ _EMPLOYMENT = {
 class HimalayasSource(Source):
     name = "himalayas"
     delay = 1.0  # 无 RateLimit 头，取值偏保守
+    # 全量要打一万多次请求。实测按 1 次/秒 压了 45 分钟后站点开始返回 500，
+    # 响应也从 1 秒退化到 28 秒，重试预算耗尽后整轮中止。放慢并更耐心一些。
+    full_delay = 2.5
+    full_max_retries = 8
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -54,9 +66,16 @@ class HimalayasSource(Source):
     async def _iter(self, *, full: bool) -> AsyncIterator[Job]:
         watermark = 0 if full else int(self.cursor.get("max_pub_date") or 0)
         highest = watermark
-        offset = 0
         total: int | None = None
 
+        # 上一次全量走到哪了。只有全量用得上：增量本来就是从头看几页就停。
+        pending = int(self.cursor.get("full_offset") or 0)
+        offset = max(0, pending - RESUME_REWIND) if (full and pending) else 0
+        if offset:
+            log.info("himalayas 全量从 offset=%s 续跑（上次停在 %s）", offset, pending)
+            self.resume_state = {"full_offset": offset}
+
+        walked_to_end = False
         while True:
             payload = await self.fetcher.get_json(
                 API, params={"limit": PAGE_LIMIT, "offset": offset}
@@ -67,6 +86,7 @@ class HimalayasSource(Source):
 
             jobs = payload.get("jobs") or []
             if not jobs:
+                walked_to_end = True
                 break
             if total is None:
                 total = payload.get("totalCount")
@@ -89,12 +109,29 @@ class HimalayasSource(Source):
                 break
 
             offset += PAGE_LIMIT
+            # 每翻完一页就记一次进度：这一页往后要是挂了，下次从这里接着走
+            if full:
+                self.resume_state = {"full_offset": offset}
             if total and offset >= total:
+                walked_to_end = True
                 break
             if offset and offset % (PAGE_LIMIT * 50) == 0:
                 log.info("himalayas 进度 offset=%s / %s", offset, total)
 
         self.next_cursor = {"max_pub_date": highest}
+
+        # 续跑进度的去留，三种情况各不相同：
+        if full and walked_to_end:
+            # 真的走到底了，清掉，下次 --full 从头来
+            self.resume_state = {}
+            log.info("himalayas 全量走完 offset=%s / %s", offset, total)
+        elif full:
+            # 提前退出（结构异常等）：进度留着，下次接着走
+            self.next_cursor["full_offset"] = offset
+        elif self.cursor.get("full_offset"):
+            # 增量必须**原样带上**别人的进度 —— 否则两次全量之间的任何一轮
+            # cron 增量都会把 full_offset 抹掉，续跑就永远等不到
+            self.next_cursor["full_offset"] = self.cursor["full_offset"]
 
     def _to_job(self, item: dict) -> Job | None:
         guid = item.get("guid")
