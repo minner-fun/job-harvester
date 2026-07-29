@@ -64,8 +64,14 @@ class HimalayasSource(Source):
         return self._iter(full=full)
 
     async def _iter(self, *, full: bool) -> AsyncIterator[Job]:
-        watermark = 0 if full else int(self.cursor.get("max_pub_date") or 0)
-        highest = watermark
+        stored = int(self.cursor.get("max_pub_date") or 0)
+        # 停止条件：全量不看水位线，从头走到尾
+        watermark = 0 if full else stored
+        # 但 highest 无论如何都要从**已有水位线**起步，否则水位线会倒退：
+        # 续跑是从中途某个 offset 开始的，它前面那些更新的条目这一轮根本没看到，
+        # 从 0 起算得到的最大 pubDate 会比原水位线还旧。实测一次续跑就把水位线
+        # 从 07-28 推回了 07-23 —— 不丢数据（下一轮增量会重抓），但白跑一大段。
+        highest = stored
         total: int | None = None
 
         # 上一次全量走到哪了。只有全量用得上：增量本来就是从头看几页就停。

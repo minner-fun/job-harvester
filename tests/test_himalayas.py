@@ -261,6 +261,34 @@ async def test_增量不受续跑进度影响_仍从头看():
     assert fetcher.calls[0][1]["offset"] == 0
 
 
+async def test_续跑不得让水位线倒退():
+    """回归护栏：这是真事故。
+
+    续跑从 offset 14,326 开始，它**前面**那一万多条更新的岗位这一轮根本
+    没被看到。若 highest 从 0 起算，算出来的最大 pubDate 只是续跑区间里的
+    最大值，比原水位线还旧 —— 实测一次就把水位线从 07-28 推回了 07-23。
+    不丢数据（下一轮增量会把这五天重抓一遍），但白跑一大段。
+    """
+    fetcher = FakeFetcher({API: paged()})
+    # 水位线比 fixture 里任何一条都新，续跑区间怎么算都超不过它
+    未来 = 1785000000 + 999999
+    source = HimalayasSource(fetcher, {"max_pub_date": 未来, "full_offset": 900})
+
+    await collect(source, full=True)
+
+    assert source.next_cursor["max_pub_date"] == 未来, "水位线倒退了"
+
+
+async def test_全量遇到更新的记录仍会推进水位线():
+    """反过来也要成立：真有更新的就得推上去，不能被旧值卡死。"""
+    fetcher = FakeFetcher({API: paged()})
+    source = HimalayasSource(fetcher, {"max_pub_date": 1000})
+
+    await collect(source, full=True)
+
+    assert source.next_cursor["max_pub_date"] == 1785000000
+
+
 async def test_全量用更保守的速率与重试预算():
     """沿用增量的参数，实测压 45 分钟后站点就开始返回 500。"""
     assert HimalayasSource.full_delay > HimalayasSource.delay

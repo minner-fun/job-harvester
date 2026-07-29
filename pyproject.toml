@@ -1,6 +1,6 @@
 [project]
 name = "job-harvester"
-version = "0.3.0"
+version = "0.3.1"
 description = "多源岗位采集器：产出标准化岗位记录，不涉及存储"
 requires-python = ">=3.11"
 dependencies = [
